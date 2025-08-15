@@ -15,7 +15,7 @@ class Server {
     this.middlewares();
 
     //Funciones para las rutas
-    //this.routes();/
+    this.routes();
   }
 
   async conectarDB() {
@@ -34,7 +34,7 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.usuariosPath, "../routes/usuarios");
+    this.app.use(this.usuariosPath, require("../routes/usuarios"));
   }
 
   listen() {
