@@ -57,27 +57,23 @@ const usuarioDelete = async (req = request, res = response) => {
   const { id } = req.params;
 
   //Para eliminar el registro
-  //const usuarioBorrado = await Usuario.findByIdAndDelete(id);
+  const usuarioBorrado = await Usuario.findByIdAndDelete(id);
 
   //Para cambiar el estado a false
-  const usuario = await Usuario.findById(id);
+  /*const usuario = await Usuario.findById(id);
 
   if (!usuario.estado) {
     return res.json({
       mensaje: "El usuario no existe",
     });
-  }
+  } 
 
-  const usuarioInactivado = await Usuario.findByIdAndUpdate(
-    id,
-    { estado: false },
-    { new: true }
-  ); 
+  const usuarioInactivado = await Usuario.findByIdAndUpdate(id,{ estado: false },{ new: true }); */
 
   res.json({
     mensaje: "Usuario borrado",
-    //usuarioBorrado,
-    usuarioInactivado
+    usuarioBorrado
+    //usuarioInactivado
   });
 };
 
