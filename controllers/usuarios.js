@@ -1,5 +1,6 @@
 const { response, request, json } = require("express");
 const Usuario = require("../models/usuario");
+const bcrypt = require("bcryptjs");
 
 const usuariosGet = async (req = request, res = response) => {
   const datos = req.query;
@@ -24,6 +25,9 @@ const usuarioPost = async (req = request, res = response) => {
   const usuario = new Usuario({ nombre, correo, password, rol });
 
   //Encriptar la contraseña
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+  usuario.password = hash;
 
   //Guardar los datos en BD
   await usuario.save();
@@ -41,8 +45,15 @@ const usuarioPut = async (req = request, res = response) => {
   const { password, correo, ...resto } = req.body;
 
   //Si actualiza el password, debo cifrarlo o encriptarlo
+
+  if (password) {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    resto.password = hash;
+  }
+
   resto.correo = correo;
-  resto.password = password;
+  //resto.password = password;
 
   //Buscar el usuario y actualizarlo
   const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
@@ -72,7 +83,7 @@ const usuarioDelete = async (req = request, res = response) => {
 
   res.json({
     mensaje: "Usuario borrado",
-    usuarioBorrado
+    usuarioBorrado,
     //usuarioInactivado
   });
 };
