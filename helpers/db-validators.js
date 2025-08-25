@@ -4,7 +4,7 @@ const Usuario = require("../models/usuario");
 const emailExiste = async (correo) => {
   const existeEmail = await Usuario.findOne({ correo });
 
-  if (existeEmail) ñ;
+  if (existeEmail);
   throw new Error(`El correo ${correo} ya se encuentra en la base de datos`);
 };
 
@@ -21,5 +21,5 @@ const usuarioExiste = async (id) => {
 
 module.exports = {
   emailExiste,
-  usuarioExiste
+  usuarioExiste,
 };
