@@ -19,7 +19,7 @@ const login = async (req = request, res = response) => {
     //Verificar si el usuario esta activo
     if (!usuario.estado) {
       return res.status(400).json({
-        msg: "Correo o password incorrectos | usuario inactivo",
+        msg: "Correo o password incorrectos",
       });
     }
 
@@ -27,7 +27,7 @@ const login = async (req = request, res = response) => {
     const validPassword = bcrypt.compareSync(password, usuario.password);
     if (!validPassword) {
       return res.status(400).json({
-        msg: "Correo o password incorrectos | usuario incorrecta",
+        msg: "Correo o password incorrectos",
       });
     }
 
